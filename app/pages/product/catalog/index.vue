@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import { NuxtLayout } from "#components";
-
-// definePageMeta({
-//   layout: "catalog",
-// }); // on peut en faire aussi un layout spécifique dans un composant en question ex: <NuxtLayout name="catalog">
 const products = await $fetch("/api/products"); // faire attention pour l'usage , appel deux fois (cote client & serveur), c'est bien de l'utiliser sur un event click (client side)
+const { currency } = useCurrency("en-US", "USD");
 </script>
 
 <template>
@@ -12,7 +8,7 @@ const products = await $fetch("/api/products"); // faire attention pour l'usage 
     <div>
       <ul>
         <li v-for="product in products" :key="product.id">
-          {{ product.name }} - {{ product.price }}€
+          {{ product.name }} - {{ currency(product.price) }}
         </li>
       </ul>
     </div>
