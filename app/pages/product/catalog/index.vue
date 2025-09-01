@@ -1,18 +1,22 @@
 <script setup lang="ts">
-  definePageMeta({
-    layout: 'catalog'
-  }); // on peut en faire aussi un layout spécifique dans un composant en question ex: <NuxtLayout name="catalog">
-const products = await $fetch('/api/products'); // faire attention pour l'usage , appel deux fois (cote client & serveur), c'est bien de l'utiliser sur un event click (client side)
+import { NuxtLayout } from "#components";
+
+// definePageMeta({
+//   layout: "catalog",
+// }); // on peut en faire aussi un layout spécifique dans un composant en question ex: <NuxtLayout name="catalog">
+const products = await $fetch("/api/products"); // faire attention pour l'usage , appel deux fois (cote client & serveur), c'est bien de l'utiliser sur un event click (client side)
 </script>
 
 <template>
-  <div>
-    <ul>
-      <li v-for="product in products" :key="product.id">
-        {{ product.name }} - {{ product.price }}€
-      </li>
-    </ul>
- </div>
+  <NuxtLayout name="catalog">
+    <div>
+      <ul>
+        <li v-for="product in products" :key="product.id">
+          {{ product.name }} - {{ product.price }}€
+        </li>
+      </ul>
+    </div>
+  </NuxtLayout>
 </template>
 
 <style scoped>
