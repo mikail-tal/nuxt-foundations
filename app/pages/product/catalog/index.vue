@@ -1,11 +1,13 @@
 <script setup lang="ts">
-const products = await $fetch("/api/products"); // faire attention pour l'usage , appel deux fois (cote client & serveur), c'est bien de l'utiliser sur un event click (client side)
+const { data: products } = await useFetch("/api/products");
 const { currency } = useCurrency("en-US", "USD");
+const randomNumber = useState("randomNumber");
 </script>
 
 <template>
   <NuxtLayout name="catalog">
     <div>
+      <div>Your random number is: {{ randomNumber }}</div>
       <ul>
         <li v-for="product in products" :key="product.id">
           {{ product.name }} - {{ currency(product.price) }}
